@@ -1,0 +1,167 @@
+<div class="container-fluid">
+
+  <form [formGroup]="borrowForm">
+    <fieldset>
+
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label>Reader ID :</label>
+            <input [disabled]='!borrowForm.valid' [class.is-invalid]="readerId.invalid && readerId.touched"
+              formControlName="readerId" type="number" class="form-control">
+            <small [class.d-none]="readerId.valid || readerId.untouched " class="text-danger">
+              *readerId is required
+            </small>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" [disabled]='!readerId.valid' (click)="validateReader()">Check
+        Reader</button>
+
+      <div *ngIf="checkReader()">
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label>ISBN :</label>
+              <input [class.is-invalid]="isbn.invalid && isbn.touched" formControlName="isbn" type="text" class="form-control">
+              <div *ngIf="isbn.invalid && isbn.touched">
+                <small *ngIf="isbn.errors?.required" class="text-danger">*ISBN is required</small>
+                <small *ngIf="isbn.errors?.pattern" class="text-danger">*ISBN is not valid.</small>
+              </div>
+              <button [disabled]='!borrowForm.valid' class="btn btn-primary" (click)="submit()" type="button"
+                data-toggle="modal" data-target="#forBorrow">Borrow</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-outline-success" rounded="true" data-toggle="modal" data-target="#createNew"
+        (click)="frame.show()">
+        Create New ID
+      </button>
+
+
+    </fieldset>
+  </form>
+
+</div>
+
+<!-- Creating new ReaderId  -->
+<div class="modal fade left" id="createNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="readerForm">
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fa fa-user prefix grey-text"></i>
+            <div class="form-group">
+              <label>Reader name </label>
+              <input [class.is-invalid]="name.invalid && name.touched" formControlName="name" type="text" class="form-control">
+              <small [class.d-none]="name.valid || name.untouched " class="text-danger">
+                *Reader's Name is required.
+              </small>
+            </div>
+
+            <div class="md-form mb-5">
+              <i class="fa fa-envelope prefix grey-text"></i>
+              <label>Reader Email</label>
+              <input [class.is-invalid]="email.invalid && email.touched" formControlName="email" type="text" class="form-control">
+              <div *ngIf="email.invalid && email.touched">
+                <small *ngIf="email.errors?.required" class="text-danger">*Email is required</small>
+                <small *ngIf="email.errors?.pattern" class="text-danger">*Email is not valid.</small>
+              </div>
+            </div>
+
+            <div class="md-form mb-4">
+
+              <i class="fa fa-lock prefix grey-text"></i>
+              <label>Reader Mobile No.</label>
+              <input [class.is-invalid]="mobile.invalid && mobile.touched" formControlName="mobile" type="text" class="form-control">
+              <small [class.d-none]="mobile.valid || mobile.untouched " class="text-danger">
+                *Reader's Mobile Number is required.
+              </small>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer d-flex justify-content-center">
+        <button (click)="createReader()" class="btn btn-outline-success" rounded="true" data-toggle="modal" data-target="#getNewReaderId"
+          data-dismiss="modal" [disabled]='!readerForm.valid'>Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- getting new reader id -->
+<div class="modal fade" id="getNewReaderId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Successfully Registered!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{readerForm.value.name}}'s Libraria Id is {{newReaderId}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TO RESERVE ITEM -->
+
+<div class="modal fade" id="forBorrow" tabindex="-1" role="dialog" aria-labelledby="borrowLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="borrowLabel">Borrow Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div *ngIf="noItem" class="modal-body">
+        <pre>
+          Item not available in Our Libraria !<br>
+          Check ISBN again.
+        </pre>
+      </div>
+
+      <div *ngIf="reserved" class="modal-body">
+        <pre>
+          The Item Already reserved.
+        </pre>
+      </div>
+
+      <div *ngIf="borrowAlready" class="modal-body">
+        <pre>
+          Item is currently not available.
+          Item is already borrowed by otherUser.
+          You Can Reserve This Item.
+        </pre>
+      </div>
+
+      <div *ngIf="available" class="modal-body">
+        <pre>
+          This Item is successfully borrowed by {{borrowForm.value.readerId}}
+        </pre>
+      </div>
+
+      <div class="modal-footer">
+        <button data-dismiss="modal" type="button" (click)="reset()" class="btn btn-secondary">Close</button>
+        <div *ngIf="borrowAlready && !reserved">
+          <button data-dismiss="modal" type="button" (click)="reserveItem()" class="btn btn-primary">Reserve the Item
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

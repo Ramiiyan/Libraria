@@ -1,0 +1,105 @@
+
+hr {
+    border: none;
+    height: 3px;
+    /* Set the hr color */
+    color: #325453; /* old IE */
+    background-color: #325453; /* Modern Browsers */
+}.line{
+    margin-top: 55px;
+    color: #325453;
+    size:100px;
+}
+
+
+nav{
+    margin-top: -15px;
+    background-color: #0d0e0bcc;
+    position: absolute;
+
+}
+nav li{
+    display: inline-block;
+    transform-style: preserve-3d;
+    position: relative;
+}
+nav li a{
+    color: #ffffff;
+    font-family: arial;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    position: relative;
+}
+nav li a span{
+    display: block;
+    padding: 15px 20px;
+    position: relative;
+}
+nav li a span:before{
+    content: attr(title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #325453;
+    color:  #fff;
+    padding: 15px 20px;
+    transition: .3s;
+    transform: rotateX(90deg) translateY(40px);
+    transform-origin: bottom;
+}
+nav li a span:hover:before{
+    transform: rotateX(0deg) translateY(0px);
+    
+}
+nav li a span:after{
+    content: attr(title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    color:  #262626;
+    padding: 15px 20px;
+    transition: .3s;
+    transform: rotateX(0deg) translateY(0px);
+    transform-origin: top;
+}
+nav li a span.active{
+    background-color: #325453;
+    color:  #fff;
+}
+
+nav li a span:hover:after{
+    transform: rotateX(90deg) translateY(-10px);
+    
+    
+}
+ul.sub-menu{
+   position: absolute;
+   background-color: #325453;
+   color: #fff;
+   width:126px;
+   padding-left: 0px;
+   padding-top: 10px; 
+   opacity: 0;
+}
+
+ul.sub-menu li{
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+
+}
+ nav li:hover .sub-menu{
+    opacity: 1;
+    cursor: pointer;
+    
+ }
+
+ul.sub-menu li:hover a{
+    color:#262626;
+
+}

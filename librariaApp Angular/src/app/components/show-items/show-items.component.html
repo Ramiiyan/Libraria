@@ -1,0 +1,33 @@
+
+<h2> Libraria Items</h2>
+<div class="search">
+ <form class="form-inline my-2 my-lg-0"  id="form1" #userForm="ngForm">  
+     <input class="form-control mr-sm-2" type="text" name="name" placeholder="Filter" aria-label="Search" [(ngModel)]="searchTerm"> 
+    <!--  <button class="btn btn-outline-success my-2 my-sm-0" (click)="search" >Search</button> -->
+</form> 
+</div> 
+ <table class="table">
+    <thead>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Sector</th>
+        <th>Available</th>
+    </thead>
+    <tr *ngFor="let book of bookList | bookFilter:searchTerm">
+        <td>{{book.isbn}} </td>
+        <td>{{book.title}}</td>
+        <td>{{book.sector}}</td>
+        <td *ngIf="book.available == 'Available' "> <img src="assets/img/greenBook.png" class="image" style="width:50px; height:50px;"></td>
+        <td *ngIf="book.available == 'Borrowed' "> <img src="assets/img/redBook.png" class="image" style="width:50px; height:50px;"></td>
+
+    </tr>
+    <tr *ngFor="let dvd of dvdList | bookFilter:searchTerm">
+        <td>{{dvd.isbn}} </td>
+        <td>{{dvd.title}}</td>
+        <td>{{dvd.sector}}</td>
+        <td *ngIf="dvd.borrowed == 'Available' "> <img src="assets/img/greenDvd.png" class="image" style="width:50px; height:50px;"></td>
+        <td *ngIf="dvd.borrowed == 'Borrowed' "> <img src="assets/img/redDvd.png" class="image" style="width:50px; height:50px;"></td>
+
+    </tr>
+
+</table> 

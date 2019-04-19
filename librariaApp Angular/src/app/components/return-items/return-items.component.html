@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <!-- {{returnForm.value | json}}
+ <div class ="alert alert-danger" *ngIf="errorMsg">
+      {{errorMsg}}
+    </div>-->
+  <form [formGroup]="returnForm" (ngSubmit)="onSubmit()">
+    <fieldset>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label>ISBN :</label>
+            <input [class.is-invalid]="isbn.invalid &&
+          isbn.touched" formControlName="isbn" type="text" class="form-control">
+            <div *ngIf="isbn.invalid && isbn.touched">
+              <small *ngIf="isbn.errors?.required" class="text-danger">*ISBN is required</small>
+              <small *ngIf="isbn.errors?.pattern" class="text-danger">*ISBN is not valid.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label>ReaderId :</label>
+            <input [class.is-invalid]="readerId.invalid && readerId.touched" formControlName="readerId" type="text"
+              class="form-control">
+            <small [class.d-none]="readerId.valid || readerId.untouched " class="text-danger">
+              *ReaderId is required.</small>
+          </div>
+        </div>
+      </div>
+      <button [disabled]='!returnForm.valid' class="btn btn-primary" type="submit" data-toggle="modal" data-target="#fees">Check Fees
+      </button>
+      <button class="btn btn-secondary ml-2" type="reset">Cancel</button>
+    </fieldset>
+  </form>
+</div>
+
+
+<div class="modal fade" id="fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Return Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" *ngIf="return">
+        <pre>
+          {{returnMsg}}
+        </pre>
+      </div>
+      <div class="modal-body" *ngIf="nofee">
+        <pre>
+          Reader Return before 7 days.
+          NO PAYMENTS.
+        </pre>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="reset()" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

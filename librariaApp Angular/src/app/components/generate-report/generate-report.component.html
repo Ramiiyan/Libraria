@@ -1,0 +1,28 @@
+
+<p>
+
+  </p>
+  <h1> Overdue details</h1>
+  <div>
+      <table class="table">
+          <thead>
+            <th>ISBN</th>
+            <th>Reader Id</th>
+            <!-- <th>Borrow Date</th>
+            <th>return date</th> -->
+            <th>status</th>
+            <th>OverDue</th>
+          </thead>
+          <tr *ngFor="let borrow of borrower">
+              <td> {{ borrow.isbn }} </td>
+              <td> {{ borrow.readerId }} </td>
+              <!-- <td> {{ borrow.borrowedDate }} </td>
+              <td> {{ borrow.returnDate }} </td> -->
+              <td> {{ borrow.settle }} </td>
+              <td> {{ borrow.overDue }} </td>
+            
+          </tr>
+          
+      
+      </table>
+  </div>

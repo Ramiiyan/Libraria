@@ -1,0 +1,65 @@
+    <nav>
+        <li><a routerLinkActive="active"><span title="ADD ITEMS">ADD ITEMS</span></a>
+            <ul class="sub-menu">
+                <li><a data-toggle="modal" data-target="#bookModal">ADD BOOK </a></li>
+                <li><a routerLinkActive="active" data-toggle="modal" data-target="#dvdModal">ADD DVD</a></li>
+            </ul>
+        </li>
+        <li><a routerLink="/deleteItems" routerLinkActive="active"><span title="DELETE ITEMS">DELETE ITEMS</span></a></li>
+        <li><a routerLink="/borrowItems" routerLinkActive="active"><span title="BORROW ITEM">BORROW ITEM</span></a></li>
+        <li><a routerLink="/returnItems" routerLinkActive="active"><span title="RETURN ITEM">RETURN ITEM</span></a></li>
+        <li><a routerLink="/showItems" routerLinkActive="active"><span title="DISPLAY ITEMS">DISPLAY ITEMS</span></a></li>
+        <li><a routerLink="/generateReport" routerLinkActive="active"><span title="GENERATE REPORT">GENERATE REPORT</span></a></li>
+    </nav>
+<div class="line">
+    <hr>
+</div>
+<!-- FOR BOOK COUNT-->
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">BOOKS DETAILS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                There are {{books}} of Book in Our Libraria.
+                you can add {{remainBook}} more.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div *ngIf="canAddBook">
+                    <button type="button" class="btn btn-primary" routerLink="/addBooks" routerLinkActive="active"
+                        data-dismiss="modal">Agree</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--FOR DVD COUNT -->
+<div class="modal fade" id="dvdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">DVD DETAILS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                There are {{dvds}} of DVD in Our Libraria.
+                you can add {{remainDvd}} more.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div *ngIf="canAddDvd">
+                    <button type="button" class="btn btn-primary" routerLink="/addDvds" data-dismiss="modal">Agree</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

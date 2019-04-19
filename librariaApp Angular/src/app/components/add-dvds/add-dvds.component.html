@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="top-form">
+    <!--{{addDvdForm.value | json}}
+    <div class ="alert alert-danger" *ngIf="errorMsg">
+        {{errorMsg}}
+      </div>-->
+  </div>
+  <div class="form">
+    <form [formGroup]="addDvdForm" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label>Title :</label>
+              <input [class.is-invalid]="title.invalid && title.touched" formControlName="title" type="text" class="form-control"
+                placeholder="Dvd Title">
+              <small [class.d-none]="title.valid || title.untouched " class="text-danger">
+                *Title is required.
+              </small>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label>ISBN :</label>
+              <input [class.is-invalid]="isbn.invalid && isbn.touched" formControlName="isbn" type="text" class="form-control"
+                placeholder="Dvd Isbn">
+              <div *ngIf="isbn.invalid && isbn.touched">
+                <small *ngIf="isbn.errors?.required" class="text-danger">*ISBN is required</small>
+                <small *ngIf="isbn.errors?.pattern" class="text-danger">*ISBN is not valid.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label>Producer :</label>
+              <input [class.is-invalid]="producer.invalid && producer.touched" formControlName="producer" type="text"
+                class="form-control" placeholder="Dvd Producer">
+              <small [class.d-none]="producer.valid || producer.untouched " class="text-danger">
+                *Producer is Required.
+              </small>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label>Sector :</label>
+              <select [class.is-invalid]="sector.invalid && sector.touched" formControlName="sector" class="form-control"
+                id="sector">
+                <option value="" disabled selected>Select Category</option>
+                <option *ngFor="let sector of sectors" [value]="sector.name">
+                  {{sector.name}}
+                </option>
+              </select>
+              <small [class.d-none]="sector.valid || sector.untouched " class="text-danger">
+                *Sector is Required.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label>Actors :</label>
+              <input [class.is-invalid]="actors.invalid && actors.touched" formControlName="actors" type="text"
+                placeholder="Actors" class="form-control">
+              <small [class.d-none]="actors.valid || actors.untouched " class="text-danger">
+                *Actor is Required.
+              </small>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label>Publish Date:</label>
+              <input [class.is-invalid]="publishDate.invalid && publishDate.touched" formControlName="publishDate" type="date"
+                class="form-control" placeholder="Date of Publish">
+              <small [class.d-none]="publishDate.valid || publishDate.untouched " class="text-danger">
+                *Publish Date is Required.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <div>
+                <label class="form-label">Available Languages: </label>
+              </div>
+              <div class="form-check form-check-inline" *ngFor="let control of languageArray.controls let i = index;">
+                <input class="form-check-input" [formControl]="control" (change)="getselectedLanguages()" type="checkbox"
+                  id="inlineCheckbox{{i}}">
+                <label class="form-check-label" for="inlineCheckbox{{i}}"> {{languages[i]}} </label>
+              </div>
+              <small id="fnhelp" class="text-danger" *ngIf="favLangError && checkLanguageTouched()">
+                *Atleast Choose One.
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <div>
+                <label class="form-label">Available Subtitles: </label>
+              </div>
+              <div class="form-check form-check-inline" *ngFor="let control of subtitleArray.controls let i = index;">
+                <input class="form-check-input" [formControl]="control" (change)="getselectedSubtitles()" type="checkbox"
+                  id="inlineCheckbox2{{i}}">
+                <label class="form-check-label" for="inlineCheckbox2{{i}}"> {{subtitles[i]}} </label>
+              </div>
+              <small id="fnhelp" class="text-danger" *ngIf="favSubtitleError && checkSubtitleTouched()">
+                *Atleast Choose One.
+              </small>
+            </div>
+          </div>
+        </div>
+        <button [disabled]='!addDvdForm.valid' class="btn btn-primary" type="submit">ADD TO LIBRARY</button>
+        <button class="btn btn-secondary ml-2" type="reset">Clear</button>
+        <!-- <button (click)="loadApiData()" class="btn btn-secondary ml-2" type="button">Load API data</button> -->
+
+      </fieldset>
+    </form>
+  </div>
+
+</div>

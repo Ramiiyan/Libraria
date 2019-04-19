@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <form [formGroup]="deleteForm" (ngSubmit)="onSubmit()">
+    <fieldset>
+
+          <div class="form-group">
+            <label>ISBN :</label>
+            <input [class.is-invalid]="isbn.invalid && isbn.touched" formControlName="isbn" type="text" class="form-control">
+            <div *ngIf="isbn.invalid && isbn.touched">
+              <small *ngIf="isbn.errors?.required" class="text-danger">*ISBN is required</small>
+              <small *ngIf="isbn.errors?.pattern" class="text-danger">*ISBN is not valid.</small>
+            </div>
+          </div>
+      <span *ngIf='deleteForm.valid' class= "danger">CATION : This Item Will Delete permanently !</span>
+      <button [disabled]='!deleteForm.valid' class="btn btn-primary" type="submit">Remove Item </button>
+      <button class="btn btn-secondary ml-2" type="reset">Cancel</button>
+
+    </fieldset>
+  </form>
+</div>
