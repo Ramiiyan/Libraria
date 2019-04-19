@@ -1,0 +1,6 @@
+This is a Simple Library Applications with some fnctionalities, that makes Librarian Works easy.
+This Application Has Front-end and Back-end sperately.
+Front-End made with Angular 7. and have some cool animation CSS.
+Back-End made of Play Framework with Ebean.(Ebean use for Database funtionalities)
+Data Storage With Mysql. [Future work -  NOSQL]
+Http request for Connection between FrontEnd and BackEnd.
